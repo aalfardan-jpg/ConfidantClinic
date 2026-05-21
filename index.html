@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confident Clinics — Social Media Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#0d0d0d; --cream:#f9f5ef; --gold:#c9a84c; --sand:#e8e0d0;
+  --muted:#7a7060; --red:#c94c4c; --green:#4ca876; --blue:#4c7ec9;
+  --orange:#c97a4c; --purple:#7c4cc9; --card:#ffffff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--cream);color:var(--ink);font-family:'Poppins',sans-serif;}
+
+header{background:var(--ink);padding:28px 48px;display:flex;align-items:flex-end;justify-content:space-between;border-bottom:3px solid var(--gold);}
+.brand-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;}
+.brand-name{font-size:30px;font-weight:900;color:#fff;line-height:1.1;margin:4px 0;}
+.brand-sub{font-size:13px;color:#aaa;font-weight:300;}
+.report-info{text-align:right;}
+.report-date{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:500;}
+.report-sub{font-size:12px;color:#999;margin-top:4px;}
+
+main{padding:36px 48px;max-width:1440px;margin:0 auto;}
+.sec-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:4px;}
+.sec-title{font-size:20px;font-weight:700;margin-bottom:20px;}
+
+/* OVERVIEW */
+.overview{background:var(--ink);border-radius:16px;padding:30px 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;align-items:center;margin-bottom:36px;position:relative;overflow:hidden;}
+.overview::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.12),transparent 70%);}
+.ov{display:flex;flex-direction:column;gap:4px;}
+.ov-lbl{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#bbb;font-weight:500;}
+.ov-val{font-size:26px;font-weight:700;color:#fff;line-height:1;}
+.ov-note{font-size:12px;color:#999;font-weight:300;}
+
+/* PLATFORM GRID */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:36px;}
+.pcard{background:var(--card);border-radius:14px;padding:24px;border:1px solid var(--sand);}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.pi{display:flex;align-items:center;gap:10px;}
+.picon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.pname{font-size:15px;font-weight:700;}
+.phandle{font-size:12px;color:var(--muted);margin-top:2px;}
+.bdg{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:20px;}
+.bdg-g{background:#e8f7f0;color:var(--green);}
+.bdg-o{background:#fef3e8;color:var(--orange);}
+.bdg-r{background:#fdeaea;color:var(--red);}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.met{background:var(--cream);border-radius:8px;padding:11px 13px;}
+.ml{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:500;margin-bottom:3px;}
+.mv{font-size:20px;font-weight:700;color:var(--ink);line-height:1;}
+.mv.sm{font-size:13px;font-weight:600;line-height:1.4;}
+.mv.xs{font-size:11px;font-weight:400;color:var(--muted);line-height:1.4;}
+.bar-t{height:4px;background:var(--sand);border-radius:3px;margin:12px 0;overflow:hidden;}
+.bar-f{height:100%;border-radius:3px;}
+.ilist{display:flex;flex-direction:column;gap:5px;margin-top:6px;}
+.ii{font-size:12px;color:var(--muted);display:flex;align-items:flex-start;gap:6px;line-height:1.5;}
+.dot{width:5px;height:5px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+
+/* IG HIGHLIGHTS */
+.hl-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-bottom:36px;}
+.hl-chip{background:var(--card);border-radius:10px;border:1px solid var(--sand);padding:14px 10px;text-align:center;}
+.hl-icon{font-size:20px;margin-bottom:5px;}
+.hl-ar{font-size:12px;font-weight:600;color:var(--ink);}
+.hl-en{font-size:10px;color:var(--muted);margin-top:2px;}
+
+/* TIKTOK TABLE */
+.ttvid-card{background:var(--card);border-radius:14px;border:1px solid var(--sand);overflow:hidden;margin-bottom:36px;}
+.ttvid-head{background:linear-gradient(135deg,#010101,#1a1a2e);padding:20px 26px;}
+.ttvid-head .sec-label{color:#bbb;margin-bottom:4px;}
+.ttvid-head .sec-title{color:#fff;font-size:17px;margin:0;}
+.ttvid-table{width:100%;border-collapse:collapse;}
+.ttvid-table th{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:11px 22px;text-align:left;border-bottom:1px solid var(--sand);font-weight:600;background:#fafafa;}
+.ttvid-table td{font-size:13px;padding:12px 22px;border-bottom:1px solid var(--sand);}
+.ttvid-table tr:last-child td{border-bottom:none;}
+.ttvid-table tr:hover td{background:var(--cream);}
+.views-pill{font-weight:700;font-size:14px;}
+.viral{color:var(--red);}.high{color:var(--orange);}.mid{color:var(--blue);}.low{color:var(--muted);}
+.ntag{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;margin-left:4px;}
+.nt-viral{background:#fdeaea;color:var(--red);}
+.nt-edu{background:#e8f7f0;color:var(--green);}
+
+/* TWO COL */
+.two-col{display:grid;grid-template-columns:1.35fr 1fr;gap:22px;margin-bottom:36px;}
+
+/* IMPROVEMENTS */
+.imp-card{background:var(--card);border-radius:14px;border:1px solid var(--sand);overflow:hidden;}
+.imp-head{background:var(--ink);padding:22px 26px;}
+.imp-head .sec-label{color:#e8d5a3;margin-bottom:4px;}
+.imp-head .sec-title{color:#fff;font-size:18px;margin:0;}
+.imp-item{display:grid;grid-template-columns:42px 1fr auto;align-items:start;gap:14px;padding:16px 24px;border-bottom:1px solid var(--sand);transition:background .2s;}
+.imp-item:last-child{border-bottom:none;}
+.imp-item:hover{background:var(--cream);}
+.imp-num{width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--ink);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;}
+.imp-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px;}
+.imp-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+.pill{font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;text-transform:uppercase;white-space:nowrap;align-self:start;margin-top:2px;}
+.p-h{background:#fdeaea;color:var(--red);}
+.p-m{background:#fef3e8;color:var(--orange);}
+.p-q{background:#e8f7f0;color:var(--green);}
+
+/* RIGHT COLUMN */
+.comp-card{background:var(--card);border-radius:14px;border:1px solid var(--sand);overflow:hidden;margin-bottom:18px;}
+.comp-head{background:var(--gold);padding:18px 24px;}
+.comp-head .sec-label{color:rgba(0,0,0,.45);margin-bottom:3px;}
+.comp-head .sec-title{color:var(--ink);margin:0;font-size:17px;}
+.comp-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px;padding:13px 24px;border-bottom:1px solid var(--sand);}
+.comp-row:last-child{border-bottom:none;}
+.cname{font-size:13px;font-weight:600;}
+.chandle{font-size:11px;color:var(--muted);margin-top:2px;}
+.cfoll{font-size:16px;font-weight:700;text-align:right;}
+.cbw{width:70px;}.cbar{height:5px;border-radius:3px;background:var(--sand);overflow:hidden;}
+.cbf{height:100%;border-radius:3px;background:var(--gold);}
+.conf-row{background:#fffbf2;border-left:3px solid var(--gold);}
+.comp-note{padding:12px 24px;background:#fffbf2;border-top:1px solid var(--sand);font-size:12px;color:var(--muted);line-height:1.6;}
+
+.ksa-card{background:var(--card);border-radius:14px;border:1px solid var(--sand);padding:22px;}
+.ksa-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--sand);margin-bottom:10px;}
+.ksa-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.ksa-desc{font-size:12px;color:var(--muted);}
+.ksa-val{font-size:17px;font-weight:700;}
+
+/* PILLARS */
+.pillars-card{background:var(--card);border-radius:14px;border:1px solid var(--sand);padding:26px;margin-bottom:36px;}
+.pillars-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+.pil{border-radius:10px;padding:18px 14px;text-align:center;border:1.5px solid transparent;}
+.pil-icon{font-size:24px;margin-bottom:8px;}
+.pil-title{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:5px;}
+.pil-desc{font-size:11px;color:var(--muted);line-height:1.5;}
+.p1{background:#fef3e8;border-color:#f0c896;}
+.p2{background:#e8f7f0;border-color:#96d9b8;}
+.p3{background:#e8eef7;border-color:#96b4d9;}
+.p4{background:#f7e8f7;border-color:#d496d4;}
+.p5{background:#fdeaea;border-color:#f09696;}
+
+/* KPI */
+.kpi-card{background:var(--ink);border-radius:14px;padding:30px 34px;margin-bottom:36px;}
+.kpi-card .sec-label{color:var(--gold);}
+.kpi-card .sec-title{color:#fff;}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.kpi-item{background:#181818;border-radius:10px;padding:20px;border:1px solid #333;}
+.kpi-mo{font-size:11px;color:#aaa;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.kpi-plat{font-size:12px;color:var(--gold);font-weight:600;margin-bottom:5px;}
+.kpi-tgt{font-size:26px;font-weight:700;color:#fff;line-height:1;}
+.kpi-sub{font-size:12px;color:#aaa;margin-top:4px;line-height:1.5;}
+
+/* SOURCES */
+.sources-card{background:var(--card);border-radius:14px;border:1px solid var(--sand);padding:26px 30px;margin-bottom:36px;}
+.source-item{background:var(--cream);border-radius:10px;padding:16px 20px;margin-bottom:12px;border-left:4px solid var(--gold);}
+.source-item:last-child{margin-bottom:0;}
+.source-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+.source-body{font-size:12px;color:var(--muted);line-height:1.7;}
+
+footer{background:var(--ink);color:#aaa;text-align:center;padding:18px;font-size:12px;letter-spacing:1px;border-top:1px solid #1a1a1a;}
+footer span{color:var(--gold);}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand-eyebrow">Social Intelligence Report — Live Audit</div>
+    <div class="brand-name">Confident Clinics</div>
+    <div class="brand-sub">عيادات كونفيدنت لطب الأسنان · Riyadh, Saudi Arabia</div>
+  </div>
+  <div class="report-info">
+    <div class="report-date">May 21, 2026</div>
+    <div class="report-sub">Pre-onboarding audit · confident.sa · 3 platforms</div>
+  </div>
+</header>
+
+<main>
+
+<!-- OVERVIEW -->
+<div class="overview">
+  <div class="ov">
+    <span class="ov-lbl">Instagram Followers</span>
+    <span class="ov-val">2,857</span>
+    <span class="ov-note">183 posts · 28 following</span>
+  </div>
+  <div class="ov">
+    <span class="ov-lbl">TikTok Followers</span>
+    <span class="ov-val">905</span>
+    <span class="ov-note">4,799 likes · 32 videos · 1 year old</span>
+  </div>
+  <div class="ov">
+    <span class="ov-lbl">X Followers</span>
+    <span class="ov-val">279</span>
+    <span class="ov-note">109 posts · Verified ✓ · Sep 2024</span>
+  </div>
+  <div class="ov">
+    <span class="ov-lbl">TikTok Top Video</span>
+    <span class="ov-val">114.9K</span>
+    <span class="ov-note">889 likes · 399 saves · viral potential proven</span>
+  </div>
+</div>
+
+<!-- PLATFORM CARDS -->
+<div class="sec-label">Platform Analysis</div>
+<div class="sec-title">Live Social Media Audit — May 21, 2026</div>
+<div class="pgrid">
+
+  <!-- INSTAGRAM -->
+  <div class="pcard">
+    <div class="ph">
+      <div class="pi">
+        <div class="picon" style="background:#fce4ec;">📸</div>
+        <div>
+          <div class="pname">Instagram</div>
+          <div class="phandle">@confident_clinic_sa</div>
+        </div>
+      </div>
+      <span class="bdg bdg-o">Growing</span>
+    </div>
+    <div class="mrow">
+      <div class="met"><div class="ml">Followers</div><div class="mv">2,857</div></div>
+      <div class="met"><div class="ml">Posts</div><div class="mv">183</div></div>
+    </div>
+    <div class="mrow">
+      <div class="met"><div class="ml">Following</div><div class="mv">28</div></div>
+      <div class="met"><div class="ml">Highlights</div><div class="mv sm">7 categories ✓</div></div>
+    </div>
+    <div class="bar-t"><div class="bar-f" style="width:28%;background:#e91e63;"></div></div>
+    <div class="ilist">
+      <div class="ii"><div class="dot" style="background:var(--green);"></div>Cinematic Reels, strong branding, premium dark aesthetic</div>
+      <div class="ii"><div class="dot" style="background:var(--green);"></div>7 well-organized story highlights with branded icons</div>
+      <div class="ii"><div class="dot" style="background:var(--red);"></div>No booking link in bio — biggest missed conversion opportunity</div>
+      <div class="ii"><div class="dot" style="background:var(--red);"></div>183 posts but only 2,857 followers — content not being distributed</div>
+      <div class="ii"><div class="dot" style="background:var(--orange);"></div>Bio is truncated — CTA not visible without tapping "more"</div>
+      <div class="ii"><div class="dot" style="background:var(--orange);"></div>No location tags on posts · no carousel posts</div>
+    </div>
+  </div>
+
+  <!-- TIKTOK -->
+  <div class="pcard">
+    <div class="ph">
+      <div class="pi">
+        <div class="picon" style="background:#e8f5e9;">🎵</div>
+        <div>
+          <div class="pname">TikTok</div>
+          <div class="phandle">@confidentclinic12</div>
+        </div>
+      </div>
+      <span class="bdg bdg-o">Active</span>
+    </div>
+    <div class="mrow">
+      <div class="met"><div class="ml">Followers</div><div class="mv">905</div></div>
+      <div class="met"><div class="ml">Total Likes</div><div class="mv">4,799</div></div>
+    </div>
+    <div class="mrow">
+      <div class="met"><div class="ml">Top Video</div><div class="mv sm">114.9K views 🔥</div></div>
+      <div class="met"><div class="ml">Avg Posts/Mo</div><div class="mv sm">2.6 videos</div></div>
+    </div>
+    <div class="bar-t"><div class="bar-f" style="width:18%;background:#4caf50;"></div></div>
+    <div class="ilist">
+      <div class="ii"><div class="dot" style="background:var(--green);"></div>Proven viral potential — top video reached 114.9K views</div>
+      <div class="ii"><div class="dot" style="background:var(--green);"></div>Doctor-intro series is consistent and high production quality</div>
+      <div class="ii"><div class="dot" style="background:var(--red);"></div>Zero before/after or procedure content — biggest content gap</div>
+      <div class="ii"><div class="dot" style="background:var(--red);"></div>Only 2.6 posts/month — far too infrequent for growth</div>
+      <div class="ii"><div class="dot" style="background:var(--orange);"></div>No trending audio — limits For You Page distribution</div>
+      <div class="ii"><div class="dot" style="background:var(--orange);"></div>Handle "@confidentclinic12" looks like a backup account</div>
+    </div>
+  </div>
+
+  <!-- X -->
+  <div class="pcard">
+    <div class="ph">
+      <div class="pi">
+        <div class="picon" style="background:#e3f2fd;font-weight:900;font-size:15px;">𝕏</div>
+        <div>
+          <div class="pname">X (Twitter)</div>
+          <div class="phandle">@Confident_ruh · ✓ Verified</div>
+        </div>
+      </div>
+      <span class="bdg bdg-g">Active</span>
+    </div>
+    <div class="mrow">
+      <div class="met"><div class="ml">Followers</div><div class="mv">279</div></div>
+      <div class="met"><div class="ml">Posts</div><div class="mv">109</div></div>
+    </div>
+    <div class="mrow">
+      <div class="met"><div class="ml">Top Impressions</div><div class="mv sm">1,700 / post</div></div>
+      <div class="met"><div class="ml">Avg Engagement</div><div class="mv sm">0–6 likes/post</div></div>
+    </div>
+    <div class="bar-t"><div class="bar-f" style="width:30%;background:#1da1f2;"></div></div>
+    <div class="ilist">
+      <div class="ii"><div class="dot" style="background:var(--green);"></div>X Premium verified — boosts reach beyond 279 followers</div>
+      <div class="ii"><div class="dot" style="background:var(--green);"></div>Impressions 4–6x higher than follower count per post</div>
+      <div class="ii"><div class="dot" style="background:var(--red);"></div>Very low engagement — 0–6 likes per post</div>
+      <div class="ii"><div class="dot" style="background:var(--red);"></div>No booking CTA or link in any post</div>
+      <div class="ii"><div class="dot" style="background:var(--orange);"></div>Inconsistent posting — gaps of 2+ weeks between posts</div>
+      <div class="ii"><div class="dot" style="background:var(--orange);"></div>Only following 2 accounts — missed network opportunity</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- IG HIGHLIGHTS -->
+<div class="sec-label">Instagram Story Highlights</div>
+<div class="sec-title" style="font-size:16px;margin-bottom:8px;">7 Categories Already Set Up — Strong Structure, Needs More Content Per Category</div>
+<div class="hl-strip">
+  <div class="hl-chip"><div class="hl-icon">🦷</div><div class="hl-ar">خدماتنا</div><div class="hl-en">Services</div></div>
+  <div class="hl-chip"><div class="hl-icon">🔬</div><div class="hl-ar">أجهزتنا</div><div class="hl-en">Equipment</div></div>
+  <div class="hl-chip"><div class="hl-icon">💬</div><div class="hl-ar">آراء المراجعين</div><div class="hl-en">Reviews</div></div>
+  <div class="hl-chip"><div class="hl-icon">✨</div><div class="hl-ar">قبل/بعد</div><div class="hl-en">Before/After</div></div>
+  <div class="hl-chip"><div class="hl-icon">📋</div><div class="hl-ar">المواقف</div><div class="hl-en">Cases</div></div>
+  <div class="hl-chip"><div class="hl-icon">👨‍⚕️</div><div class="hl-ar">أطباؤنا</div><div class="hl-en">Our Doctors</div></div>
+  <div class="hl-chip"><div class="hl-icon">📍</div><div class="hl-ar">موقعنا</div><div class="hl-en">Location</div></div>
+</div>
+
+<!-- TIKTOK TABLE -->
+<div class="ttvid-card">
+  <div class="ttvid-head">
+    <div class="sec-label">TikTok Performance</div>
+    <div class="sec-title">Video View Breakdown — Content Performance Analysis</div>
+  </div>
+  <table class="ttvid-table">
+    <thead>
+      <tr>
+        <th>Video / Content</th>
+        <th>Views</th>
+        <th>Tier</th>
+        <th>Likes</th>
+        <th>Saves</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Patient arrival + clinic team scene</td><td><span class="views-pill viral">114,900</span></td><td><span class="bdg bdg-r">Viral</span></td><td>889</td><td>399</td><td><span class="ntag nt-viral">Top video</span></td></tr>
+      <tr><td>Dr. Dalal Al-Ajmi introduction</td><td><span class="views-pill viral">61,800</span></td><td><span class="bdg bdg-r">Viral</span></td><td>—</td><td>—</td><td></td></tr>
+      <tr><td>Dr. Mohammed Al-Moharib (Restorative Dentistry)</td><td><span class="views-pill high">5,242</span></td><td><span class="bdg bdg-o">High</span></td><td>—</td><td>—</td><td></td></tr>
+      <tr><td>Dr. Mohammed Alqarzaee (Perio & Implants)</td><td><span class="views-pill high">3,769</span></td><td><span class="bdg bdg-o">High</span></td><td>—</td><td>—</td><td></td></tr>
+      <tr><td>Cosmetic Dentistry explainer</td><td><span class="views-pill high">3,388</span></td><td><span class="bdg bdg-o">High</span></td><td>—</td><td>—</td><td><span class="ntag nt-edu">Educational</span></td></tr>
+      <tr><td>Dr. Mohammed Alqarzaee (2nd video)</td><td><span class="views-pill high">3,111</span></td><td><span class="bdg bdg-o">High</span></td><td>—</td><td>—</td><td></td></tr>
+      <tr><td>Dr. Abdullah Alasmaari (Orthodontics)</td><td><span class="views-pill high">2,837</span></td><td><span class="bdg bdg-o">High</span></td><td>—</td><td>—</td><td></td></tr>
+      <tr><td>Dr. Abdullah Mokeem (Prosthodontics)</td><td><span class="views-pill high">2,797</span></td><td><span class="bdg bdg-o">High</span></td><td>—</td><td>—</td><td></td></tr>
+      <tr><td>Dr. Farah Altuwaijri (General Dentist)</td><td><span class="views-pill high">5,090</span></td><td><span class="bdg bdg-o">High</span></td><td>—</td><td>—</td><td></td></tr>
+      <tr><td>Dr. Hamad Al-Hazmi (Orthodontics)</td><td><span class="views-pill" style="color:var(--blue);">2,130</span></td><td><span class="bdg" style="background:#e8eef7;color:var(--blue);">Mid</span></td><td>—</td><td>—</td><td></td></tr>
+      <tr><td>Dr. Fahad Al-Enazi (General Dentistry)</td><td><span class="views-pill" style="color:var(--blue);">2,729</span></td><td><span class="bdg" style="background:#e8eef7;color:var(--blue);">Mid</span></td><td>—</td><td>—</td><td></td></tr>
+      <tr><td>Lower performers (avg)</td><td><span class="views-pill low">~1,200</span></td><td><span class="bdg bdg-g">Base</span></td><td>—</td><td>—</td><td>Range: 897–1,858</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- TWO COL -->
+<div class="two-col">
+  <div class="imp-card">
+    <div class="imp-head">
+      <div class="sec-label">Action Plan</div>
+      <div class="sec-title">Priority Improvements — Ranked by Impact</div>
+    </div>
+    <div>
+      <div class="imp-item">
+        <div class="imp-num">1</div>
+        <div><div class="imp-title">Add Booking Link to All Bios — Today</div><div class="imp-desc">Instagram, TikTok, and X all lack a clickable booking link. Add a WhatsApp direct link or booking page URL to every bio. This is the single highest-ROI fix available and takes 10 minutes.</div></div>
+        <span class="pill p-q">✓ Quick Win</span>
+      </div>
+      <div class="imp-item">
+        <div class="imp-num">2</div>
+        <div><div class="imp-title">Launch Before/After Content on TikTok & Reels</div><div class="imp-desc">Zero before/after procedure videos on TikTok despite it being the #1 dental content type globally. Hollywood smile reveals, orthodontic results, and GBT cleaning should be weekly content pillars.</div></div>
+        <span class="pill p-h">🔥 High</span>
+      </div>
+      <div class="imp-item">
+        <div class="imp-num">3</div>
+        <div><div class="imp-title">Increase TikTok Frequency to 3–4x/Week</div><div class="imp-desc">Currently posting 2.6 videos/month — far below the minimum for TikTok growth. The production quality is already there. The bottleneck is volume. More content = more For You Page distribution.</div></div>
+        <span class="pill p-h">🔥 High</span>
+      </div>
+      <div class="imp-item">
+        <div class="imp-num">4</div>
+        <div><div class="imp-title">Run Instagram Reels Ads — Riyadh Targeted</div><div class="imp-desc">183 posts and only 2,857 followers means organic reach has a ceiling. Launch paid Reels Ads targeting Riyadh residents. A ر.س 2,000/month budget can unlock the audience the content deserves.</div></div>
+        <span class="pill p-h">🔥 High</span>
+      </div>
+      <div class="imp-item">
+        <div class="imp-num">5</div>
+        <div><div class="imp-title">Add Trending Audio to TikTok</div><div class="imp-desc">Almost all TikTok videos use original audio, limiting FYP reach. Mixing trending Arabic sounds into 30–50% of posts can multiply views 5–10x with the same content quality.</div></div>
+        <span class="pill p-m">⚡ Medium</span>
+      </div>
+      <div class="imp-item">
+        <div class="imp-num">6</div>
+        <div><div class="imp-title">Add Location Tags & Carousel Posts on Instagram</div><div class="imp-desc">No location tags on posts limits local discovery. Tag Riyadh / At Taawun on every post. Launch carousel posts ("5 signs you need veneers") — they have the highest save rate on Instagram.</div></div>
+        <span class="pill p-m">⚡ Medium</span>
+      </div>
+      <div class="imp-item">
+        <div class="imp-num">7</div>
+        <div><div class="imp-title">Add CTAs & Polls to X Posts</div><div class="imp-desc">Impressions reach 1,700/post despite only 279 followers — the verified status is working. But engagement is near zero. End every post with a booking CTA and launch weekly polls to drive replies.</div></div>
+        <span class="pill p-m">⚡ Medium</span>
+      </div>
+      <div class="imp-item">
+        <div class="imp-num">8</div>
+        <div><div class="imp-title">Rename TikTok Handle</div><div class="imp-desc">@confidentclinic12 signals an unprofessional backup account. Request a handle change to @confidentclinic or @confidentclinicsa via TikTok support to match the brand's premium positioning.</div></div>
+        <span class="pill p-q">✓ Quick Win</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:18px;">
+    <div class="comp-card">
+      <div class="comp-head">
+        <div class="sec-label">Competitive Landscape</div>
+        <div class="sec-title">Riyadh Dental — Instagram Followers</div>
+      </div>
+      <div class="conf-row comp-row">
+        <div><div class="cname">⭐ Confident Clinics</div><div class="chandle">@confident_clinic_sa · Our Client</div></div>
+        <div class="cfoll" style="color:var(--gold);">2,857</div>
+        <div class="cbw"><div class="cbar"><div class="cbf" style="width:4%;"></div></div></div>
+      </div>
+      <div class="comp-row">
+        <div><div class="cname">Savvy Dental</div><div class="chandle">@savvydental_riyadh</div></div>
+        <div class="cfoll">12K</div>
+        <div class="cbw"><div class="cbar"><div class="cbf" style="width:15%;"></div></div></div>
+      </div>
+      <div class="comp-row">
+        <div><div class="cname">Smile Dental Clinic</div><div class="chandle">@smileclinic.sa</div></div>
+        <div class="cfoll">31K</div>
+        <div class="cbw"><div class="cbar"><div class="cbf" style="width:40%;"></div></div></div>
+      </div>
+      <div class="comp-row">
+        <div><div class="cname">Image Dental Center</div><div class="chandle">@imagedentalclinic · Riyadh</div></div>
+        <div class="cfoll">78K</div>
+        <div class="cbw"><div class="cbar"><div class="cbf" style="width:100%;"></div></div></div>
+      </div>
+      <div class="comp-note">📌 Confident has a premium brand and 20+ specialists — the gap to competitors is closable in 6–9 months with consistent strategy and paid ads.</div>
+    </div>
+
+    <div class="ksa-card">
+      <div class="sec-label" style="margin-bottom:12px;">KSA Market Data</div>
+      <div class="ksa-row"><span class="ksa-desc">Instagram penetration in Saudi Arabia</span><span class="ksa-val" style="color:var(--gold);">76.4%</span></div>
+      <div class="ksa-row"><span class="ksa-desc">Patient flow increase via Instagram (private dental KSA)</span><span class="ksa-val" style="color:var(--green);">+60%</span></div>
+      <div class="ksa-row"><span class="ksa-desc">Patients research online before booking</span><span class="ksa-val" style="color:var(--blue);">75%</span></div>
+      <div class="ksa-row"><span class="ksa-desc">Top performing content: clinical case photos</span><span class="ksa-val" style="color:var(--purple);">84.9%</span></div>
+      <div class="ksa-row"><span class="ksa-desc">Active social media users in Saudi Arabia</span><span class="ksa-val" style="color:var(--orange);">27M</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT PILLARS -->
+<div class="sec-label">Content Framework</div>
+<div class="sec-title">5-Pillar Strategy — Built on Existing Assets</div>
+<div class="pillars-card">
+  <div class="pillars-grid">
+    <div class="pil p1">
+      <div class="pil-icon">✨</div>
+      <div class="pil-title">Smile Transformations</div>
+      <div class="pil-desc">Expand the existing before/after highlight into weekly Reels and TikToks. Hollywood smile reveals are the #1 dental content type globally — currently absent on TikTok.</div>
+    </div>
+    <div class="pil p2">
+      <div class="pil-icon">👨‍⚕️</div>
+      <div class="pil-title">Doctor Series</div>
+      <div class="pil-desc">The doctor-intro series on TikTok is already working — expand it to Reels and Instagram Stories. 20+ named specialists is a trust differentiator no competitor can match.</div>
+    </div>
+    <div class="pil p3">
+      <div class="pil-icon">🔬</div>
+      <div class="pil-title">Tech Showcase</div>
+      <div class="pil-desc">The equipment highlight exists on Instagram — bring it to TikTok. 3D printing, AirFlow, and laser demos position Confident as the premium tech-forward clinic in Riyadh.</div>
+    </div>
+    <div class="pil p4">
+      <div class="pil-icon">💬</div>
+      <div class="pil-title">Patient Stories</div>
+      <div class="pil-desc">The reviews highlight already exists — convert it to short-form video testimonials across all platforms. Real patient stories drive conversions far better than branded content alone.</div>
+    </div>
+    <div class="pil p5">
+      <div class="pil-icon">🏥</div>
+      <div class="pil-title">Clinic Life</div>
+      <div class="pil-desc">Daily behind-the-scenes Stories on Instagram: morning team arrivals, procedure prep, team moments. Humanizes the brand and builds local loyalty with the Riyadh audience.</div>
+    </div>
+  </div>
+</div>
+
+<!-- KPI -->
+<div class="kpi-card">
+  <div class="sec-label">Growth Roadmap</div>
+  <div class="sec-title">90-Day KPI Targets — Starting from Live Baseline</div>
+  <div class="kpi-grid">
+    <div class="kpi-item" style="border-color:#e91e6344;">
+      <div class="kpi-mo">Month 1 — Foundation</div>
+      <div class="kpi-plat">Instagram</div>
+      <div class="kpi-tgt">4,500+</div>
+      <div class="kpi-sub">From 2,857 · booking link live · location tags on all posts · 4–5 Reels/week</div>
+    </div>
+    <div class="kpi-item" style="border-color:#1da1f244;">
+      <div class="kpi-mo">Month 1 — Foundation</div>
+      <div class="kpi-plat">X (Twitter)</div>
+      <div class="kpi-tgt">800+</div>
+      <div class="kpi-sub">From 279 · CTA on every post · weekly polls live · following 50+ relevant accounts</div>
+    </div>
+    <div class="kpi-item" style="border-color:#4caf5044;">
+      <div class="kpi-mo">Month 2 — Growth</div>
+      <div class="kpi-plat">TikTok</div>
+      <div class="kpi-tgt">2,500+</div>
+      <div class="kpi-sub">From 905 · before/after content live · 3–4x/week · trending audio integrated</div>
+    </div>
+    <div class="kpi-item" style="border-color:#e91e6344;">
+      <div class="kpi-mo">Month 2 — Growth</div>
+      <div class="kpi-plat">Instagram</div>
+      <div class="kpi-tgt">7,000+</div>
+      <div class="kpi-sub">Paid Reels Ads running · carousel posts live · first influencer collab</div>
+    </div>
+    <div class="kpi-item" style="border-color:#c9a84c44;">
+      <div class="kpi-mo">Month 3 — Scale</div>
+      <div class="kpi-plat">All Platforms</div>
+      <div class="kpi-tgt">12K+</div>
+      <div class="kpi-sub">Combined followers · 20–30 social-sourced bookings/month tracked</div>
+    </div>
+    <div class="kpi-item" style="border-color:#1da1f244;">
+      <div class="kpi-mo">Month 3 — Scale</div>
+      <div class="kpi-plat">Engagement</div>
+      <div class="kpi-tgt">3–5%</div>
+      <div class="kpi-sub">Instagram engagement rate target · X community active · leads from social tracked</div>
+    </div>
+  </div>
+</div>
+
+<!-- SOURCES -->
+<div class="sources-card">
+  <div class="sec-label">Sources</div>
+  <div class="sec-title" style="font-size:17px;">Data Sources & References</div>
+  <div class="source-item">
+    <div class="source-title">Key Statistics (76.4% · +60% · 75% · 84.9% · 27M active users)</div>
+    <div class="source-body">Al-Khalifa KS, Almarar FH, Alatiyyah FM, et al. <em>"The Impact of Instagram on Dental Professionals in Saudi Arabia: A Cross-Sectional Investigation."</em><br><strong>Oral Health & Preventive Dentistry.</strong> 2025 Aug 26;23:489–498. doi: 10.3290/j.ohpd.c_2231 · PMID: 40857014 · PMC12412759</div>
+  </div>
+  <div class="source-item" style="border-left-color:var(--blue);">
+    <div class="source-title">Competitor Instagram Follower Counts</div>
+    <div class="source-body">Collected directly from public Instagram profiles, May 2026: @imagedentalclinic (78K) · @smileclinic.sa (31K) · @savvydental_riyadh (12K) · @confident_clinic_sa (2,857)</div>
+  </div>
+  <div class="source-item" style="border-left-color:var(--green);">
+    <div class="source-title">Confident Clinics Account Data</div>
+    <div class="source-body">Verified directly from official accounts, May 2026: Instagram @confident_clinic_sa: 2,857 followers · 183 posts · TikTok @confidentclinic12: 905 followers · 4,799 likes · 32 videos · X @Confident_ruh: 279 followers · 109 posts · X Premium verified ✓</div>
+  </div>
+  <div class="source-item" style="border-left-color:var(--orange);margin-bottom:0;">
+    <div class="source-title">Supporting Research</div>
+    <div class="source-body">AlSheikh RN, et al. <em>"Instagram and Aesthetic Dentistry: A Study of Content and Engagement Among Arabic Posts Related to Dental Smile."</em> <strong>Clin Cosmet Investig Dent.</strong> 2025 Feb 19;17:135–146. doi: 10.2147/CCIDE.S508347 · Rival IQ 2025 Social Media Industry Benchmark Report · Hootsuite Average Engagement Rates by Industry, Jan 2025</div>
+  </div>
+</div>
+
+</main>
+<footer>
+  Live audit prepared for <span>Confident Clinics · عيادات كونفيدنت</span> · Riyadh · confident.sa · <span>May 21, 2026</span>
+</footer>
+</body>
+</html>
